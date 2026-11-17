@@ -1,0 +1,4 @@
+best_algorithm,count,percent
+2opt_hill_climbing,172,49.0
+sa_2opt,128,36.5
+mst_2opt,51,14.5

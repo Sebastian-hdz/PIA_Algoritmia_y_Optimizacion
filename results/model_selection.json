@@ -1,0 +1,27 @@
+{
+  "n_splits": 5,
+  "seed": 42,
+  "baseline_cv_accuracy": 0.4900201207243461,
+  "tree": {
+    "best_params": {
+      "class_weight": null,
+      "criterion": "entropy",
+      "max_depth": 2,
+      "min_samples_leaf": 1
+    },
+    "cv_accuracy_mean": 0.6667605633802817,
+    "cv_accuracy_std": 0.04110864398371949,
+    "cv_f1_macro_mean": 0.4746172210638221
+  },
+  "knn": {
+    "best_params": {
+      "n_neighbors": 15,
+      "p": 1,
+      "weights": "distance"
+    },
+    "cv_accuracy_mean": 0.701006036217304,
+    "cv_accuracy_std": 0.0321236674532561,
+    "cv_f1_macro_mean": 0.6335748847697484
+  },
+  "best_model": "knn"
+}

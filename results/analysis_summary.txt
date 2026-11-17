@@ -1,0 +1,134 @@
+ANALISIS (Persona 5)
+======================================================================
+Mejor modelo segun CV: knn
+
+A) IMPORTANCIA DE CARACTERISTICAS
+Arbol: profundidad=2, hojas=4
+Importancia por impureza (arbol, suma = 1):
+   n                    0.586
+   mean_centroid_dist   0.297
+   distribution         0.117
+   mean_pairwise_dist   0.000
+   std_coords           0.000
+   mean_nn_dist         0.000
+Importancia por permutacion en test (caida de accuracy, media +- std de 100 repeticiones):
+  Modelo tree:
+   n                    +0.1410 +- 0.0264
+   mean_centroid_dist   +0.0892 +- 0.0273
+   mean_pairwise_dist   +0.0000 +- 0.0000
+   std_coords           +0.0000 +- 0.0000
+   mean_nn_dist         +0.0000 +- 0.0000
+   distribution         +0.0000 +- 0.0000
+  Modelo knn:
+   n                    +0.0810 +- 0.0278
+   mean_nn_dist         +0.0319 +- 0.0248
+   distribution         +0.0018 +- 0.0169
+   mean_pairwise_dist   -0.0152 +- 0.0102
+   mean_centroid_dist   -0.0196 +- 0.0105
+   std_coords           -0.0205 +- 0.0112
+
+Reglas del arbol (n sin escalar):
+|--- n <= 17.50
+|   |--- distribution_border <= 0.50
+|   |   |--- class: 2opt_hill_climbing
+|   |--- distribution_border >  0.50
+|   |   |--- class: 2opt_hill_climbing
+|--- n >  17.50
+|   |--- mean_centroid_dist <= 0.45
+|   |   |--- class: sa_2opt
+|   |--- mean_centroid_dist >  0.45
+|   |   |--- class: 2opt_hill_climbing
+
+Permutacion por grupos en test (caida de accuracy, media +- std de 100 repeticiones):
+   tree  n                            +0.1458 +- 0.0304
+   tree  distribution + 4 numericas   +0.0821 +- 0.0253
+   tree  4 numericas                  +0.0856 +- 0.0276
+   knn   n                            +0.0834 +- 0.0274
+   knn   distribution + 4 numericas   +0.1442 +- 0.0369
+   knn   4 numericas                  +0.0940 +- 0.0387
+
+Correlacion de Spearman entre caracteristicas numericas (500 instancias):
+                       n  mean_pairwise_dist  std_coords  mean_centroid_dist  mean_nn_dist
+n                   1.00               -0.00        0.11                0.11         -0.72
+mean_pairwise_dist -0.00                1.00        0.98                0.98          0.46
+std_coords          0.11                0.98        1.00                1.00          0.36
+mean_centroid_dist  0.11                0.98        1.00                1.00          0.36
+mean_nn_dist       -0.72                0.46        0.36                0.36          1.00
+
+B) PATRONES POR DISTRIBUCION Y TAMANO (500 instancias)
+Instancias con empate en el minimo: 231 (46.2%); empate de los 3: 175
+
+Ganador por distribucion (conteo y %):
+best_algorithm  2opt_hill_climbing  sa_2opt  mst_2opt  2opt_hill_climbing_%  sa_2opt_%  mst_2opt_%  total
+dist                                                                                                     
+uniform                         57       83        27                  34.1       49.7        16.2    167
+clustered                       65       71        31                  38.9       42.5        18.6    167
+border                         124       28        14                  74.7       16.9         8.4    166
+
+Ganador por tamano n (conteo y %):
+best_algorithm  2opt_hill_climbing  sa_2opt  mst_2opt  2opt_hill_climbing_%  sa_2opt_%  mst_2opt_%  total
+n                                                                                                        
+5                               56        1         0                  98.2        1.8         0.0     57
+10                              49        8         0                  86.0       14.0         0.0     57
+15                              37       20         0                  64.9       35.1         0.0     57
+20                              22       33         2                  38.6       57.9         3.5     57
+30                              26       20        10                  46.4       35.7        17.9     56
+40                              21       25         8                  38.9       46.3        14.8     54
+60                              10       31        13                  18.5       57.4        24.1     54
+80                               8       26        20                  14.8       48.1        37.0     54
+100                             17       18        19                  31.5       33.3        35.2     54
+
+Brecha relativa media (%) de cada algoritmo vs el mejor, por n, y % de instancias con empate de los 3:
+     2opt_hill_climbing  sa_2opt  mst_2opt  pct_empate_3
+n                                                       
+5                 0.001    0.000     0.001          98.2
+10                0.413    0.000     0.477          78.9
+15                1.089    0.000     1.340          49.1
+20                2.046    0.072     2.022          29.8
+30                2.760    0.516     2.068          30.4
+40                2.883    0.825     2.349          20.4
+60                6.673    4.031     3.694           1.9
+80                4.346    4.217     2.990           0.0
+100               4.033    6.240     7.087           0.0
+
+Solo victorias SIN empate, por distribucion (conteo):
+best_algorithm  2opt_hill_climbing  sa_2opt  mst_2opt  2opt_hill_climbing_%  sa_2opt_%  mst_2opt_%  total
+dist                                                                                                     
+uniform                         12       69        27                  11.1       63.9        25.0    108
+clustered                       20       63        31                  17.5       55.3        27.2    114
+border                          14       19        14                  29.8       40.4        29.8     47
+
+Solo victorias SIN empate, por tamano (conteo):
+best_algorithm  2opt_hill_climbing  sa_2opt  mst_2opt  2opt_hill_climbing_%  sa_2opt_%  mst_2opt_%  total
+n                                                                                                        
+5                                0        1         0                   0.0      100.0         0.0      1
+10                               0        6         0                   0.0      100.0         0.0      6
+15                               0       13         0                   0.0      100.0         0.0     13
+20                               1       19         2                   4.5       86.4         9.1     22
+30                               7       20        10                  18.9       54.1        27.0     37
+40                               8       21         8                  21.6       56.8        21.6     37
+60                               5       27        13                  11.1       60.0        28.9     45
+80                               8       26        20                  14.8       48.1        37.0     54
+100                             17       18        19                  31.5       33.3        35.2     54
+
+C) DETECCION DE CLASES MINORITARIAS EN TEST
+
+Modelo tree: accuracy = 0.6644
+  Predicciones por clase: 2opt_hill_climbing=84, sa_2opt=65, mst_2opt=0
+  Reales por clase:       2opt_hill_climbing=74, sa_2opt=54, mst_2opt=21
+  2opt_hill_climbing   precision=0.750  recall=0.851  f1=0.797  (soporte=74)
+  sa_2opt              precision=0.554  recall=0.667  f1=0.605  (soporte=54)
+  mst_2opt             precision=0.000  recall=0.000  f1=0.000  (soporte=21)
+  Elige un algoritmo con costo minimo (acepta empates): 0.6711
+  Accuracy solo en instancias SIN empate (82): 0.4390
+  Detecta 'SA o MST superan a 2-opt': recall=0.720 (54/75), precision=0.831 (54/65)
+
+Modelo knn (mejor segun CV): accuracy = 0.6242
+  Predicciones por clase: 2opt_hill_climbing=64, sa_2opt=65, mst_2opt=20
+  Reales por clase:       2opt_hill_climbing=74, sa_2opt=54, mst_2opt=21
+  2opt_hill_climbing   precision=0.812  recall=0.703  f1=0.754  (soporte=74)
+  sa_2opt              precision=0.523  recall=0.630  f1=0.571  (soporte=54)
+  mst_2opt             precision=0.350  recall=0.333  f1=0.341  (soporte=21)
+  Elige un algoritmo con costo minimo (acepta empates): 0.6846
+  Accuracy solo en instancias SIN empate (82): 0.4512
+  Detecta 'SA o MST superan a 2-opt': recall=0.840 (63/75), precision=0.741 (63/85)

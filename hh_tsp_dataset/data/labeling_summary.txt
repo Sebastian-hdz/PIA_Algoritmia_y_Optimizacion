@@ -1,0 +1,46 @@
+RESUMEN DEL ETIQUETADO
+==========================================================================
+Parámetros de SA y del etiquetado
+  SA T0                       : 0.1
+  SA T_final                  : 0.0001
+  SA enfriamiento             : exponencial: T_k = T0 * (T_final / T0) ** (k / N)
+  SA iteraciones              : 30000
+  2-opt (búsqueda local)      : hill climbing de mejora primera, inicio aleatorio
+  MST + 2-opt                 : Prim + preorden + 2-opt
+  semilla base                : 42
+  regla de empates            : 2opt_hill_climbing > sa_2opt > mst_2opt (costos redondeados a 9 decimales)
+
+Balance de clases: algoritmo ganador sobre las 500 instancias
+  algoritmo              instancias  % de 500   train    test
+  2opt_hill_climbing            246     49.2%     172      74
+  sa_2opt                       182     36.4%     128      54
+  mst_2opt                       72     14.4%      51      21
+
+Baseline trivial («siempre predecir el algoritmo más frecuente»)
+  Clase más frecuente en train : 2opt_hill_climbing  (49.0% de train)
+  Accuracy del baseline en test: 49.7%
+
+Empates (varios algoritmos con el mismo costo mínimo)
+  Sin empate          : 269 instancias
+  Empate de 2         : 56 instancias
+  Empate de los 3     : 175 instancias
+  Total con empate    : 231 instancias (46.2%)
+
+Ganadores por tamaño n (conteo)
+  best_algorithm  2opt_hill_climbing  sa_2opt  mst_2opt
+  n                                                    
+  5                               56        1         0
+  10                              49        8         0
+  15                              37       20         0
+  20                              22       33         2
+  30                              26       20        10
+  40                              21       25         8
+  60                              10       31        13
+  80                               8       26        20
+  100                             17       18        19
+
+Tiempo medio por instancia (s)
+  2opt_hill_climbing    : 0.003
+  sa_2opt               : 0.056
+  mst_2opt              : 0.002
+Tiempo total del etiquetado   : 0.5 min

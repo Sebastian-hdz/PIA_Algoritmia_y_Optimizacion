@@ -1,0 +1,4 @@
+dist,2opt_hill_climbing,sa_2opt,mst_2opt,2opt_hill_climbing_%,sa_2opt_%,mst_2opt_%,total
+uniform,57,83,27,34.1,49.7,16.2,167
+clustered,65,71,31,38.9,42.5,18.6,167
+border,124,28,14,74.7,16.9,8.4,166
