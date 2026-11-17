@@ -14,8 +14,8 @@ etiquetas `best_algorithm`, y (2) entrenar y evaluar un clasificador (Árbol de 
 | # | Rol | Archivo(s) | Nombre de los integrantes |
 |---|-----|-----------| -------------------------- |
 | 1 | Algoritmos | `tsp_algorithms.py` | Sthefany Paola Díaz Pérez |
-| 2 | Etiquetado | `label_instances.py` | Elena Guadalupe Perez Contreras |
-| 3 | Modelos | `train_eval.py` (`train_models`) | Jaime Sebastián Gonzalez Ontiveros |
+| 2 | Etiquetado | `label_instances.py` | Jaime Sebastián Gonzalez Ontiveros |
+| 3 | Modelos | `train_eval.py` (`train_models`) | Elena Guadalupe Perez Contreras |
 | 4 | Métricas | `train_eval.py` (`evaluate_models`) | Mauricio López García |
 | 5 | Análisis y repo | `train_eval.py` (`analyze_results`), `README.md` | Sebastián Hernández Pérez |
 
