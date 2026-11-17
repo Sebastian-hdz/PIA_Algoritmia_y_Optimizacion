@@ -14,8 +14,8 @@ etiquetas `best_algorithm`, y (2) entrenar y evaluar un clasificador (Árbol de 
 | # | Rol | Archivo(s) | Nombre de los integrantes |
 |---|-----|-----------| -------------------------- |
 | 1 | Algoritmos | `tsp_algorithms.py` | Sthefany Paola Díaz Pérez |
-| 2 | Etiquetado | `label_instances.py` | Elena Guadalupe Perez Contreras |
-| 3 | Modelos | `train_eval.py` (`train_models`) | Jaime Sebastián Gonzalez Ontiveros |
+| 2 | Etiquetado | `label_instances.py` | Jaime Sebastián Gonzalez Ontiveros |
+| 3 | Modelos | `train_eval.py` (`train_models`) | Elena Guadalupe Perez Contreras |
 | 4 | Métricas | `train_eval.py` (`evaluate_models`) | Mauricio López García |
 | 5 | Análisis y repo | `train_eval.py` (`analyze_results`), `README.md` | Sebastián Hernández Pérez |
 
@@ -28,11 +28,13 @@ etiquetas `best_algorithm`, y (2) entrenar y evaluar un clasificador (Árbol de 
 ├── tsp_algorithms.py        # los 3 algoritmos
 ├── label_instances.py       # genera train_labeled.csv / test_labeled.csv
 ├── train_eval.py            # entrenamiento (parte 1), métricas en test (parte 2), análisis (parte 3)
+├── extra_checks.py          # verificaciones del reporte: políticas fijas, bootstrap, Held-Karp, Figuras 1 y 2
 ├── train_labeled.csv        # train etiquetado (351 filas)
 ├── test_labeled.csv         # test etiquetado (149 filas)
 ├── labeling_summary.txt     # parámetros de SA, regla de empates, balance de clases, baseline
 ├── hh_tsp_dataset/          # dataset del profesor (instancias y características, sin etiquetas)
 ├── results/                 # modelos (.joblib), tablas (.csv) y figuras (.png)
+├── Reporte.pdf              # reporte final
 ├── requirements.txt
 └── README.md
 ```
@@ -71,6 +73,17 @@ python train_eval.py --only-analysis  # solo análisis (usa los modelos guardado
 
 El test solo se usa en las partes 2 y 3. Los hiperparámetros se eligen con validación cruzada
 estratificada de 5 pliegues sobre train.
+
+**3. Verificaciones adicionales del reporte**
+
+```bash
+python extra_checks.py                  # requiere haber corrido antes: python train_eval.py --only-eval
+python extra_checks.py --boot 20000     # opcional: más remuestreos del bootstrap
+```
+
+Genera las cifras del reporte que no salen de `train_eval.py`: la tabla de políticas fijas y oráculo (sección 4.3),
+el intervalo de confianza por bootstrap (sección 4.3), la verificación con el óptimo exacto de Held-Karp en las
+171 instancias con n ≤ 15 (sección 2.5) y las Figuras 1 y 2. Tarda aproximadamente un minuto (semilla 42).
 
 ## Parámetros del etiquetado
 
@@ -133,6 +146,16 @@ La comparación contra «siempre SA+2-opt» (regret relativo 1.36%) y el anális
 | `analysis_summary.txt` | Resumen en texto de todo el análisis |
 
 Las salidas de la parte 2 (`test_metrics.*`, `confusion_*`, `regret_per_instance.csv`) también están en `results/`.
+
+### Salidas de `extra_checks.py` (`results/`)
+
+| Archivo | Contenido |
+|---------|-----------|
+| `policy_comparison.csv` | Siempre 2-opt / SA / MST, árbol, KNN y oráculo: accuracy, regret y costo total en test |
+| `bootstrap_vs_always_sa.csv` | Diferencia de regret relativo contra «siempre SA» con intervalo de confianza del 95% |
+| `error_stats.csv` | Número de errores de cada modelo y su regret relativo medio |
+| `heldkarp_check.csv`, `heldkarp_summary.txt` | Óptimo exacto (n ≤ 15) y brecha de cada algoritmo |
+| `fig_accuracy_test.png`, `fig_regret_policies.png` | Figuras 1 y 2 del reporte |
 
 ## Reproducibilidad
 

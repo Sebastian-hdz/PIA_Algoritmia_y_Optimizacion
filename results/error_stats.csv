@@ -1,0 +1,3 @@
+modelo,errores,errores_con_regret_cero,regret_relativo_medio_en_errores_pct
+tree,50,1,3.736276453761519
+knn,56,9,4.476133152841154

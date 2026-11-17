@@ -1,0 +1,5 @@
+VERIFICACION CON HELD-KARP (n <= 15): 171 instancias
+  2opt_hill_climbing   costos por debajo del optimo: 0 | brecha media: 0.5008 %
+  sa_2opt              costos por debajo del optimo: 0 | brecha media: 0.0000 %
+  mst_2opt             costos por debajo del optimo: 0 | brecha media: 0.6061 %
+  (un costo menor que el optimo seria un error; debe dar 0 en los tres algoritmos)
